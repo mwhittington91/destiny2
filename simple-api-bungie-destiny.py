@@ -1,4 +1,5 @@
 from requests_oauthlib import OAuth2Session
+import requests
 from dotenv import load_dotenv
 import os
 
@@ -8,7 +9,8 @@ api_key = os.getenv('API_KEY')
 client_id = os.getenv('CLIENT_ID')
 client_secret = os.getenv('CLIENT_SECRET')
 
-redirect_url = "https://mwhittington91.github.io"
+redirect_url = "https://www.thunderclient.com/oauth/callback"
+#redirect_url = "https://0ytcgew3yd.execute-api.us-east-1.amazonaws.com/destiny"
 base_auth_url = "https://www.bungie.net/en/OAuth/Authorize"
 token_url = "https://www.bungie.net/platform/app/oauth/token/"
 
@@ -19,12 +21,15 @@ print(f"Authorization link: {auth_link[0]}")
 
 redirect_response = input(f"Paste url link here: ")
 
-session.fetch_token(
+#print(f"Redirect URL: {redirect_response}")
+
+print(session.fetch_token(
     client_id=client_id,
     client_secret=client_secret,
     token_url=token_url,
     authorization_response=redirect_response
-)
+))
+
 
 additional_headers = { 'X-API-Key': api_key }
 user_details_endpoint = "https://www.bungie.net/Platform/User/GetCurrentBungieNetUser/"
